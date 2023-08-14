@@ -24,7 +24,12 @@ vim.opt.number = true                                   -- set numbered lines
 vim.opt.relativenumber = true                           -- set relative numbered lines
 vim.opt.numberwidth = 4                                 -- set number column width to 2 {default 4}
 vim.opt.wrap = false                                    -- display lines as one long line
--- vim.api.nvim_set_option('switchbuf', 'useopen,newtab')
+vim.opt.confirm = true
+vim.opt.ignorecase = true
+vim.opt.shiftround = true
+vim.opt.splitkeep = "screen"
+vim.opt.shortmess:append({ C = true })
+vim.opt.shortmess:append({ W = true, I = true, c = true })
 vim.opt.showcmd = false
 vim.opt.fillchars = {
   eob = ' ',
@@ -39,3 +44,4 @@ vim.opt.fillchars = {
 vim.opt.cmdheight = 0
 vim.opt.scrolloff = 4
 vim.o.signcolumn = "yes:1"
+vim.opt.autoindent = true

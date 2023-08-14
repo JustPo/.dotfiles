@@ -32,10 +32,10 @@ function setup_space {
 }
 
 setup_space 1 terminal
-setup_space 2 safari
+setup_space 2 firefox
 setup_space 3 other
 
 # move some apps automatically to specific spaces
 yabai -m rule --add app="^Alacritty$" space=^1
-yabai -m rule --add app="^Google Chrome$" space=^2
+yabai -m rule --add app="^Firefox$" space=^2
 yabai -m rule --add app="^Finder$" space=3

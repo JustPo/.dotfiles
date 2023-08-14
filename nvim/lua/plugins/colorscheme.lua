@@ -41,7 +41,8 @@ return {
 
       highlight_groups = {
         ColorColumn = { bg = 'none' },
-        CursorLine = { bg = 'none', fg = 'iris' },
+        NvimTreeCursorLine = { bg = 'none', fg = 'iris'},
+        -- CursorLine = { bg = 'none', fg = 'iris' },
         StatusLine = { fg = 'love', bg = 'love', blend = 0 },
         Search = { bg = 'gold', inherit = false },
         PmenuSel = { bg = 'none', fg = 'iris'}

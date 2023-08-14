@@ -1,6 +1,5 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
 require "plugins"
 require "options"
 require "keymaps"
@@ -16,7 +15,6 @@ vim.api.nvim_create_autocmd(
     command = 'set termguicolors | hi Cursor blend=0'
   }
 )
-
 
 vim.api.nvim_create_autocmd('VimEnter', {
   pattern = 'NvimTree_1',
@@ -47,9 +45,18 @@ vim.api.nvim_create_autocmd('BufEnter', {
     local lines = vim.api.nvim_buf_line_count(0)
     local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     local length = string.len(table.concat(content))
+    vim.opt.cursorline = true
     if lines == 1 and length == 0 then
       vim.cmd [[wincmd p]]
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufLeave', {
+  pattern = 'Trouble',
+  desc = 'Cursor line disable',
+  callback = function()
+    vim.opt.cursorline = false
   end,
 })
 

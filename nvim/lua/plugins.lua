@@ -122,3 +122,9 @@ mason_lspconfig.setup_handlers {
     }
   end
 }
+
+local signs = { Error = "", Warn = "", Hint = "", Info = "", }
+for name, icon in pairs(signs) do
+  name = "DiagnosticSign" .. name
+  vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+end
