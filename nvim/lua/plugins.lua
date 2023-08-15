@@ -27,7 +27,8 @@ local plugins = {
   { require 'plugins.bg' },
   { require 'plugins.pairs' },
   { require 'plugins.trouble' },
-  { require 'plugins.flash' }
+  { require 'plugins.flash' },
+  { require 'plugins.gitsigns' }
 }
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
