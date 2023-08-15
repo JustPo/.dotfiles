@@ -5,13 +5,13 @@ return {
     search = {
       multi_window = false,
     },
-    char = {
-      enabled = false,
-    },
+    modes = {
+      char = {
+        enabled = false,
+      },
+    }
   },
   keys = {
-    { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    { "f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
   },
 }
-
-

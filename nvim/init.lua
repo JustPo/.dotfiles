@@ -16,7 +16,6 @@ vim.api.nvim_create_autocmd(
   }
 )
 
-
 vim.api.nvim_create_autocmd('VimEnter', {
   pattern = 'NvimTree_1',
   desc = 'Hide Cursor',

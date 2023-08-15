@@ -10,9 +10,12 @@ return {
         defaults = {
           mappings = {
             i = {
-              ['<C-u>'] = false,
-              ['<C-d>'] = false,
+              ['<C-u>'] = true,
+              ['<C-d>'] = true,
             },
+          },
+          preview = {
+            hide_on_startup = true -- hide previewer when picker starts
           },
         },
       }

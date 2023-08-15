@@ -12,13 +12,24 @@ return {
 
     local lualine = require('lualine')
     local file_type = function()
-      return vim.bo.filetype ~= "Trouble", vim.bo.filetype ~= "NvimTree"
+      if vim.bo.filetype == "Trouble" then
+        return false
+      elseif vim.bo.filetype == "NvimTree" then
+        return false
+      elseif vim.api.nvim_win_get_config(0).relative == 'win' then
+        return false
+      elseif vim.api.nvim_win_get_config(0).relative == 'editor' then
+        return false
+      else
+        return true
+      end
     end
+
     lualine.setup {
       options = {
         icons_enabled        = true,
         theme                = theme,
-        ignore_focus         = {},
+        ignore_focus         = { "Telescope" },
         always_divide_middle = false,
         globalstatus         = true,
         refresh              = {
@@ -41,14 +52,7 @@ return {
             always_visible = true,
             color = { fg = 'None', bg = 'None' },
             sections = { 'error', 'warn' },
-            cond = function()
-              if vim.bo.filetype == "Trouble" then
-                return false
-              elseif vim.bo.filetype == "NvimTree" then
-                return false
-              else return true
-              end
-            end,
+            cond = file_type,
             padding = {
               left = 0,
               right = 2
