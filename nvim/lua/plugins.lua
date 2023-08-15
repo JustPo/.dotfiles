@@ -24,7 +24,6 @@ local plugins = {
   { require 'plugins.telescope' },
   { require 'plugins.treesitter' },
   { require 'plugins.navigator' },
-  { require 'plugins.bg' },
   { require 'plugins.pairs' },
   { require 'plugins.trouble' },
   { require 'plugins.flash' },
