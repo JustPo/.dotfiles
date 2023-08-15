@@ -4,17 +4,18 @@ require "plugins"
 require "options"
 require "keymaps"
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = { 'NvimTree_1', 'Trouble' },
+  pattern = { 'NvimTree_1'},
   command = 'set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor'
 })
 
 vim.api.nvim_create_autocmd(
   "BufLeave",
   {
-    pattern = { "NvimTree_1", 'Trouble' },
+    pattern = { "NvimTree_1" },
     command = 'set termguicolors | hi Cursor blend=0'
   }
 )
+
 
 vim.api.nvim_create_autocmd('VimEnter', {
   pattern = 'NvimTree_1',
@@ -30,7 +31,6 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 vim.cmd [[highlight StatusLine guibg=NONE]]
--- vim.cmd [[highlight CursorLine guibg=NONE]]
 vim.diagnostic.config({
   underline = false,
 })
@@ -45,9 +45,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
     local lines = vim.api.nvim_buf_line_count(0)
     local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     local length = string.len(table.concat(content))
-    vim.opt.cursorline = true
     if lines == 1 and length == 0 then
       vim.cmd [[wincmd p]]
+    else
+      vim.opt.cursorline = true
+      vim.cmd [[set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor]]
     end
   end,
 })
@@ -57,8 +59,10 @@ vim.api.nvim_create_autocmd('BufLeave', {
   desc = 'Cursor line disable',
   callback = function()
     vim.opt.cursorline = false
+    vim.cmd[[set termguicolors | hi Cursor blend=0]]
   end,
 })
+
 
 local function augroup(name)
   return vim.api.nvim_create_augroup("config_" .. name, { clear = true })
@@ -76,5 +80,15 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   group = augroup("resize_splits"),
   callback = function()
     vim.cmd("tabdo wincmd =")
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  desc = 'enable lualine if not nvimTree',
+  callback = function()
+    if vim.bo.filetype ~= "NvimTree" then
+      ---@diagnostic disable-next-line: missing-fields
+      require('lualine').hide({ unhide = true })
+    end
   end,
 })

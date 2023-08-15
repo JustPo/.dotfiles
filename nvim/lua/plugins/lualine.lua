@@ -11,11 +11,14 @@ return {
     theme.command.c.bg = 'None'
 
     local lualine = require('lualine')
+    local file_type = function()
+      return vim.bo.filetype ~= "Trouble", vim.bo.filetype ~= "NvimTree"
+    end
     lualine.setup {
       options = {
         icons_enabled        = true,
         theme                = theme,
-        ignore_focus         = { 'NvimTree', 'Trouble' },
+        ignore_focus         = {},
         always_divide_middle = false,
         globalstatus         = true,
         refresh              = {
@@ -38,6 +41,14 @@ return {
             always_visible = true,
             color = { fg = 'None', bg = 'None' },
             sections = { 'error', 'warn' },
+            cond = function()
+              if vim.bo.filetype == "Trouble" then
+                return false
+              elseif vim.bo.filetype == "NvimTree" then
+                return false
+              else return true
+              end
+            end,
             padding = {
               left = 0,
               right = 2
@@ -47,12 +58,14 @@ return {
             "filetype",
             icon_only = true,
             separator = "",
+            cond = file_type,
             padding = { left = 0, right = 1 },
             color = { fg = 'None', bg = 'None' }
           },
           {
             "filename",
             path = 1,
+            cond = file_type,
             symbols = { modified = "", readonly = "", unnamed = "" },
             padding = { left = 0, right = 1 },
             color = { fg = 'None', bg = 'None' }
@@ -68,13 +81,5 @@ return {
       },
     }
     lualine.setup({})
-    vim.api.nvim_create_autocmd('BufEnter', {
-      callback = function()
-        if vim.bo.filetype ~= "NvimTree" then
-          ---@diagnostic disable-next-line: missing-fields
-          require('lualine').hide({ unhide = true })
-        end
-      end,
-    })
   end
 }

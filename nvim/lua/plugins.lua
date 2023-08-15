@@ -18,9 +18,7 @@ local plugins = {
   { require 'plugins.colorscheme' },
   { require 'plugins.tree' },
   { require 'plugins.lualine' },
-  { require 'plugins.leap' },
   { require 'plugins.alpha' },
-  { require 'plugins.vim-repeat' },
   { require 'plugins.nvim-cmp' },
   { require 'plugins.nvim-lspconfig' },
   { require 'plugins.telescope' },
@@ -28,7 +26,8 @@ local plugins = {
   { require 'plugins.navigator' },
   { require 'plugins.bg' },
   { require 'plugins.pairs' },
-  { require 'plugins.trouble' }
+  { require 'plugins.trouble' },
+  { require 'plugins.flash' }
 }
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
@@ -131,10 +130,3 @@ for name, icon in pairs(signs) do
   name = "DiagnosticSign" .. name
   vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
 end
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = vim.api.nvim_create_augroup("AutoFormat", {}),
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-})
