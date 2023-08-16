@@ -1,9 +1,9 @@
 return {
-    'neovim/nvim-lspconfig',
-    lazy = false,
-    dependencies = {
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-      'folke/neodev.nvim',
-    },
+  'neovim/nvim-lspconfig',
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    { 'williamboman/mason.nvim', config = true },
+    'williamboman/mason-lspconfig.nvim',
+    'folke/neodev.nvim',
+  },
 }

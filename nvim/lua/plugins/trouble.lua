@@ -11,6 +11,7 @@ return {
     indent_lines = false,
     include_declaration = {}
   },
+  cmd = "Trouble",
   keys = {
     {
       "<leader>t",

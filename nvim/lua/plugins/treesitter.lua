@@ -3,7 +3,8 @@ return {
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
-  lazy = false,
+  version = false,
+  event = { "BufReadPre", "BufNewFile" },
   build = ':TSUpdate',
   config = function()
     ---@diagnostic disable-next-line: missing-fields

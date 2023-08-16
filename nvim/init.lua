@@ -3,6 +3,7 @@ vim.g.loaded_netrwPlugin = 1
 require "plugins"
 require "options"
 require "keymaps"
+
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { 'NvimTree_1'},
   command = 'set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor'
