@@ -4,7 +4,7 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   version = false,
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "BufEnter *.lua", "BufNewFile" },
   build = ':TSUpdate',
   config = function()
     ---@diagnostic disable-next-line: missing-fields

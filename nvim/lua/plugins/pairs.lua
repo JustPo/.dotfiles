@@ -1,7 +1,7 @@
 return {
   "echasnovski/mini.pairs",
   version = '*',
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "BufEnter", "BufNewFile" },
   opts = {},
   config = function()
     require('mini.pairs').setup()
