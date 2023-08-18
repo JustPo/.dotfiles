@@ -2,7 +2,7 @@ return {
   "echasnovski/mini.pairs",
   version = '*',
   lazy = true,
-  event = { "BufEnter", "BufNewFile" },
+  event = { "InsertEnter" },
   opts = {},
   config = function()
     require('mini.pairs').setup()

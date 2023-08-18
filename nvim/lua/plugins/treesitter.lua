@@ -5,7 +5,7 @@ return {
   },
   lazy = true,
   version = false,
-  event = { "BufEnter *.lua", "BufNewFile" },
+  event = { "BufReadPost", "BufNewFile" },
   build = ':TSUpdate',
   config = function()
     ---@diagnostic disable-next-line: missing-fields
