@@ -38,14 +38,19 @@ return {
           h6 = 'foam',
         }
       },
-
       highlight_groups = {
         ColorColumn = { bg = 'none' },
-        NvimTreeCursorLine = { bg = 'none', fg = 'iris'},
+        NvimTreeCursorLine = { bg = 'none', fg = 'iris' },
         -- CursorLine = { bg = 'none', fg = 'iris' },
         StatusLine = { fg = 'love', bg = 'love', blend = 0 },
         Search = { bg = 'gold', inherit = false },
-        PmenuSel = { bg = 'none', fg = 'iris'}
+        PmenuSel = { bg = 'none', fg = 'iris' },
+        GitSignsAdd = { fg = 'foam', bg = 'none' },
+        GitSignsChange = { fg = 'rose', bg = 'none' },
+        GitSignsDelete = { fg = 'love', bg = 'none' },
+        SignAdd = { link = 'GitSignsAdd' },
+        SignChange = { link = 'GitSignsChange' },
+        SignDelete = { link = 'GitSignsDelete' },
       }
     }
     require('rose-pine').setup(opts)
