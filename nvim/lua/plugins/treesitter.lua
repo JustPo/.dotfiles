@@ -3,6 +3,7 @@ return {
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
+  lazy = true,
   version = false,
   event = { "BufEnter *.lua", "BufNewFile" },
   build = ':TSUpdate',

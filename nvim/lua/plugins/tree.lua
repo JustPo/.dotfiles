@@ -46,5 +46,27 @@ return {
         }
       }
     }
+    vim.api.nvim_create_autocmd('BufEnter', {
+      pattern = { 'NvimTree_1' },
+      command = 'set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor'
+    })
+
+    vim.api.nvim_create_autocmd(
+      "BufLeave",
+      {
+        pattern = { "NvimTree_1" },
+        command = 'set termguicolors | hi Cursor blend=0'
+      }
+    )
+    vim.api.nvim_create_autocmd('VimEnter', {
+      pattern = 'NvimTree_1',
+      desc = 'Hide Cursor',
+      callback = function()
+        local hl = vim.api.nvim_get_hl(0, { name = 'Cursor' })
+        hl.blend = 100
+        vim.api.nvim_set_hl(0, 'Cursor', hl)
+        vim.opt.guicursor:append('a:Cursor/lCursor')
+      end,
+    })
   end
 }

@@ -1,5 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
+  lazy = true,
   event = { "BufEnter", "BufNewFile" },
   opts = {
     on_attach = function(buffer)

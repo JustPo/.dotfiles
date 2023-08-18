@@ -1,6 +1,7 @@
 return {
   'nvim-lualine/lualine.nvim',
-  lazy = false,
+  lazy = true,
+  event = "BufEnter",
   config = function()
     local theme = require('lualine.themes.auto')
     theme.normal.c.bg = 'None'
