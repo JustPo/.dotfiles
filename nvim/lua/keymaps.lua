@@ -48,8 +48,10 @@ keymap('n', '<C-w>', ':w<CR>', opts)
 vim.keymap.set('n', '<ESC>', function()
   for _, win in pairs(vim.api.nvim_list_wins()) do
     if vim.api.nvim_win_get_config(win).relative == 'win' then
+      vim.api.nvim_exec_autocmds("User", { pattern = "FloatWindowClose" })
       vim.api.nvim_win_close(win, false)
     elseif vim.api.nvim_win_get_config(win).relative == 'editor' then
+      vim.api.nvim_exec_autocmds("User", { pattern = "FloatWindowClose" })
       vim.api.nvim_win_close(win, false)
     end
   end

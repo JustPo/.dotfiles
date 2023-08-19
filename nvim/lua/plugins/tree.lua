@@ -55,14 +55,14 @@ return {
       }
     }
     vim.api.nvim_create_autocmd('BufEnter', {
-      pattern = { 'NvimTree_1' },
+      pattern = 'NvimTree_1',
       command = 'set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor'
     })
 
     vim.api.nvim_create_autocmd(
       "BufLeave",
       {
-        pattern = { "NvimTree_1" },
+        pattern = "NvimTree_1",
         command = 'set termguicolors | hi Cursor blend=0'
       }
     )
