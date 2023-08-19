@@ -45,7 +45,7 @@ return {
         StatusLine = { fg = 'love', bg = 'love', blend = 0 },
         Search = { bg = 'gold', inherit = false },
         PmenuSel = { bg = 'none', fg = 'iris' },
-        GitSignsAdd = { fg = 'foam', bg = 'none' },
+        GitSignsAdd = { fg = '#5beb82', bg = 'none' },
         GitSignsChange = { fg = 'rose', bg = 'none' },
         GitSignsDelete = { fg = 'love', bg = 'none' },
         SignAdd = { link = 'GitSignsAdd' },
@@ -72,9 +72,21 @@ return {
         MasonWarning = { link = "WarningMsg", default = true },
         MasonHeading = { bold = true, default = true },
         LazySpecial = { bg = 'none', fg = '#e0def4' },
+        DiffAdd = { bg = 'none', fg = '#5beb82', blend = 0, default = true },
+        DiffChange = { bg = 'none', fg = 'foam' },
+        DiffDelete = { bg = 'none', fg = 'love' },
+        DiffText = { bg = 'none', fg = 'white' },
+        diffAdded = { link = 'DiffAdd' },
+        diffChanged = { link = 'DiffChange' },
+        diffRemoved = { link = 'DiffDelete' },
+        GitSignsDeletePreview = { bg = 'NONE', fg = "love", blend = 0, nocombine = true },
+        GitSignsAddPreview = { bg = 'NONE', fg = '#5beb82', blend = 0, nocombine = true },
+        GitSignsAddLn = { bg = 'NONE', fg = 'none', blend = 0, nocombine = true }
       }
     }
     require('rose-pine').setup(opts)
     vim.cmd('colorscheme rose-pine')
+    vim.cmd [[highlight GitSignsAddPreview guibg=none]]
+    vim.cmd [[highlight GitSignsDeletePreview guibg=none]]
   end,
 }
