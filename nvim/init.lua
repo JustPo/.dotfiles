@@ -55,3 +55,18 @@ vim.api.nvim_create_autocmd('BufLeave', {
     vim.cmd [[set termguicolors | hi Cursor blend=0]]
   end,
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    if vim.bo.filetype == "lazy" then
+      vim.opt.cursorline = true
+      vim.cmd [[set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor]]
+    elseif vim.bo.filetype == "mason" then
+      vim.opt.cursorline = true
+      vim.cmd [[set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor]]
+    else
+      vim.opt.cursorline = false
+      vim.cmd [[set termguicolors | hi Cursor blend=0]]
+    end
+  end,
+})

@@ -29,6 +29,10 @@ local opts = {
         "zipPlugin",
       },
     }
+  },
+  ui = {
+    border = "rounded",
+    noautocmd = false
   }
 }
 

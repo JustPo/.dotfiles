@@ -41,7 +41,7 @@ return {
       highlight_groups = {
         ColorColumn = { bg = 'none' },
         NvimTreeCursorLine = { bg = 'none', fg = 'iris' },
-        -- CursorLine = { bg = 'none', fg = 'iris' },
+        CursorLine = { bg = "#26233a", fg = 'none' },
         StatusLine = { fg = 'love', bg = 'love', blend = 0 },
         Search = { bg = 'gold', inherit = false },
         PmenuSel = { bg = 'none', fg = 'iris' },
@@ -51,6 +51,8 @@ return {
         SignAdd = { link = 'GitSignsAdd' },
         SignChange = { link = 'GitSignsChange' },
         SignDelete = { link = 'GitSignsDelete' },
+        MasonNormal = { bg = 'none', fg = 'none' },
+        FloatBorder = { bg = 'none', fg = 'highlight_med' }
       }
     }
     require('rose-pine').setup(opts)

@@ -3,8 +3,8 @@ return {
   lazy = true,
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    { 'williamboman/mason.nvim', opts = {} , run = ":MasonUpdate" },
-    {'williamboman/mason-lspconfig.nvim' },
+    { 'williamboman/mason.nvim',          opts = { ui = { border = "rounded" } }, run = ":MasonUpdate", cmd = "Mason" },
+    { 'williamboman/mason-lspconfig.nvim' },
     { 'folke/neodev.nvim' },
   },
   config = function()
