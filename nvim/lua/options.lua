@@ -1,6 +1,6 @@
 vim.opt.backup = false
 vim.opt.clipboard = "unnamedplus"
-vim.opt.completeopt = { "menu", "menuone", "noselect" } -- mostly just for cmp
+vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" } -- mostly just for cmp
 vim.opt.fileencoding = "utf-8"                          -- the encoding written to a file
 vim.opt.hlsearch = false                                -- highlight all matches on previous search pattern
 vim.opt.mouse = "a"                                     -- allow the mouse to be used in neovim

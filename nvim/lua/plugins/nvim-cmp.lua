@@ -36,7 +36,13 @@ return {
   lazy = true,
   event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
-    'L3MON4D3/LuaSnip',
+    {
+      'L3MON4D3/LuaSnip',
+      opts = {
+        history = true,
+        delete_check_events = "TextChanged",
+      }
+    },
     'saadparwaiz1/cmp_luasnip',
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
@@ -55,6 +61,7 @@ return {
     require('luasnip.loaders.from_vscode').lazy_load()
     ---@diagnostic disable-next-line: missing-fields
     cmp.setup {
+      preselect = cmp.PreselectMode.None,
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -66,14 +73,15 @@ return {
         ["<C-e>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
         ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
         ["<C-y>"] = cmp.config.disable,
-        ["<CR>"] = cmp.mapping.confirm { select = true },
+        ["<CR>"] = cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        },
         ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
+          if luasnip.jumpable(1) then
+            luasnip.jump(1)
+          elseif cmp.visible() then
             cmp.select_next_item()
-          elseif luasnip.expandable() then
-            luasnip.expand()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
           elseif check_backspace() then
             fallback()
           else
@@ -84,10 +92,10 @@ return {
           "s",
         }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
+          if luasnip.jumpable(-1) then
             luasnip.jump(-1)
+          elseif cmp.visible() then
+            cmp.select_prev_item()
           else
             fallback()
           end
@@ -124,10 +132,6 @@ return {
         ---@diagnostic disable-next-line: missing-fields
         completion = borderstyle,
         documentation = borderstyle
-      },
-      confirm_opts = {
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
       },
     }
     ---@diagnostic disable-next-line: missing-fields

@@ -58,15 +58,6 @@ return {
       )
     end
 
-    local servers = {
-      lua_ls = {
-        Lua = {
-          workspace = { checkThirdParty = false },
-          telemetry = { enable = false },
-        },
-      },
-    }
-
     require('neodev').setup()
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -75,18 +66,33 @@ return {
     local mason_lspconfig = require 'mason-lspconfig'
 
     mason_lspconfig.setup {
-      ensure_installed = vim.tbl_keys(servers),
+      ensure_installed = { 'lua_ls , tsserver' },
     }
 
     mason_lspconfig.setup_handlers {
-      function(server_name)
-        require('lspconfig')[server_name].setup {
-          capabilities = capabilities,
-          on_attach = on_attach,
-          settings = servers[server_name],
-          filetypes = (servers[server_name] or {}).filetypes,
-        }
-      end
+      require('lspconfig').lua_ls.setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            completion = {
+              callSnippet = "Replace",
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+            hint = { enable = true },
+          }
+        },
+        filetypes = require('lspconfig').lua_ls.filetypes,
+      },
+      require('lspconfig').tsserver.setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        filetypes = require('lspconfig').tsserver.filetypes
+      }
     }
 
     local signs = { Error = "", Warn = "", Hint = "", Info = "", }
