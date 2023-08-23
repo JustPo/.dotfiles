@@ -81,5 +81,7 @@ return {
         },
       },
     }
+    ---@diagnostic disable-next-line: deprecated
+    vim.treesitter.query.set("swift", "injections", "")
   end
 }
