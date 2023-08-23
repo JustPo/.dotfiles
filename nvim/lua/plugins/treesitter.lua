@@ -21,6 +21,7 @@ return {
         'typescript',
         'vimdoc',
         'vim',
+        'swift',
         'javascript',
         'json'
       },

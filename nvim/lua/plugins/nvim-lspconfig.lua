@@ -66,7 +66,7 @@ return {
     local mason_lspconfig = require 'mason-lspconfig'
 
     mason_lspconfig.setup {
-      ensure_installed = { 'lua_ls , tsserver' },
+      ensure_installed = { 'tsserver', 'lua_ls' },
     }
 
     mason_lspconfig.setup_handlers {
@@ -94,6 +94,7 @@ return {
         filetypes = require('lspconfig').tsserver.filetypes
       }
     }
+    require("lspconfig").sourcekit.setup {}
 
     local signs = { Error = "", Warn = "", Hint = "", Info = "", }
     for name, icon in pairs(signs) do
