@@ -61,7 +61,6 @@ return {
     require('luasnip.loaders.from_vscode').lazy_load()
     ---@diagnostic disable-next-line: missing-fields
     cmp.setup {
-      preselect = cmp.PreselectMode.None,
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -75,7 +74,7 @@ return {
         ["<C-y>"] = cmp.config.disable,
         ["<CR>"] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
+          select = true,
         },
         ["<Tab>"] = cmp.mapping(function(fallback)
           if luasnip.jumpable(1) then
