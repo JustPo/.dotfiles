@@ -66,7 +66,7 @@ return {
     local mason_lspconfig = require 'mason-lspconfig'
 
     mason_lspconfig.setup {
-      ensure_installed = { 'tsserver', 'lua_ls' },
+      ensure_installed = { 'tsserver', 'lua_ls', 'rust_analyzer' },
     }
 
     mason_lspconfig.setup_handlers {
@@ -92,9 +92,19 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
         filetypes = require('lspconfig').tsserver.filetypes
+      },
+      require('lspconfig').rust_analyzer.setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        filetypes = require('lspconfig').rust_analyzer.filetypes
       }
     }
-    require("lspconfig").sourcekit.setup {}
+
+    require("lspconfig").sourcekit.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      filetypes = require('lspconfig').sourcekit.filetypes
+    }
 
     local signs = { Error = "", Warn = "", Hint = "", Info = "", }
     for name, icon in pairs(signs) do
