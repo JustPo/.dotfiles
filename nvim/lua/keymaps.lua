@@ -14,6 +14,11 @@ keymap("n", "<A-Down>", ":resize -2<CR>", opts)
 keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
 
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
+
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
@@ -40,7 +45,7 @@ vim.keymap.set('n', '<c-f>', vim.lsp.buf.format, opts)
 vim.keymap.set('v', '<c-f>', vim.lsp.buf.format, opts)
 keymap('n', '<leader>o', ':normal o<CR>', opts)
 keymap('n', '<leader>O', ':normal O<CR>', opts)
-keymap('n', '<C-w>', ':w<CR>', opts)
+keymap('n', '<C-w>', ':silent write<CR>', opts)
 vim.keymap.set('n', '<ESC>', function()
   for _, win in pairs(vim.api.nvim_list_wins()) do
     if vim.api.nvim_win_get_config(win).relative == 'win' then

@@ -30,14 +30,14 @@ return {
       options = {
         icons_enabled        = true,
         theme                = theme,
-        ignore_focus         = { "Telescope" },
+        ignore_focus         = { "Telescope", "Navigator" },
         always_divide_middle = false,
         globalstatus         = true,
         refresh              = {
           statusline = 100,
         },
         disabled_filetypes   = {
-          statusline = { "alpha" }, winbar = {},
+          -- statusline = { "alpha" }, winbar = {},
         },
       },
       sections = {
@@ -79,6 +79,7 @@ return {
         lualine_z = {
           {
             "branch",
+            always_visible = true,
             icon = { '', padding = { left = 0, right = 0 }, color = { fg = '#e17792' } },
             color = { fg = 'None', bg = 'None' }
           }

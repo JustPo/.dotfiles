@@ -81,3 +81,13 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+  augroup = vim.api.nvim_create_augroup("Personal"),
+  pattern = '*.rs',
+  nested = true,
+  callback = function()
+    vim.cmd [[silent write]]
+  end
+})
+

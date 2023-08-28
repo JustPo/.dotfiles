@@ -38,8 +38,10 @@ return {
             },
           },
           preview = {
-            hide_on_startup = true -- hide previewer when picker starts
+            hide_on_startup = false -- hide previewer when picker starts
           },
+          layout_strategy = 'horizontal',
+          layout_config = { height = 0.999, width = 0.999 },
         },
       }
 
