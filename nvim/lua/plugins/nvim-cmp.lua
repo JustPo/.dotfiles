@@ -132,7 +132,7 @@ return {
         expandable_indicator = false,
         format = function(entry, vim_item)
           local label = vim_item.abbr
-          local truncated_label = vim.fn.strcharpart(label, 0, 35)
+          local truncated_label = vim.fn.strcharpart(label, 0, 45)
           if truncated_label ~= label then
             vim_item.abbr = truncated_label .. '…'
           end
