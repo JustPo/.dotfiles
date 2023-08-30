@@ -7,7 +7,6 @@ vim.diagnostic.config({
   underline = false,
 })
 
-
 local hl = vim.api.nvim_get_hl(0, { name = 'VertSplit' })
 hl.blend = 100
 vim.api.nvim_set_hl(0, 'VertSplit', hl)
@@ -83,7 +82,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
-  augroup = vim.api.nvim_create_augroup("Personal"),
   pattern = '*.rs',
   nested = true,
   callback = function()

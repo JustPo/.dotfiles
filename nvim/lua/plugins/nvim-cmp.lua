@@ -61,21 +61,38 @@ return {
     require('luasnip.loaders.from_vscode').lazy_load()
     ---@diagnostic disable-next-line: missing-fields
     cmp.setup {
+      ---@diagnostic disable-next-line: missing-fields
+      completion = {
+        completeopt = "menu,menuone,noinsert",
+        get_trigger_characters = function()
+          return { "(" }
+        end,
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
         end,
       },
+      matching = {
+        disallow_fuzzy_matching = true,
+        disallow_prefix_unmatching = false,
+        disallow_partial_fuzzy_matching = true,
+        disallow_fullfuzzy_matching = false,
+        disallow_partial_matching = false,
+      },
       mapping = {
         ["<C-p>"] = cmp.mapping.select_prev_item(),
         ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-e>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
         ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
         ["<C-y>"] = cmp.config.disable,
         ["<CR>"] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         },
+        ["<C-a"] = cmp.mapping(cmp.mapping.complete({
+          reason = cmp.ContextReason.Auto,
+        }), { "i", "c" }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if luasnip.jumpable(1) then
             luasnip.jump(1)
@@ -98,11 +115,27 @@ return {
           "i",
           "s",
         }),
+        ["<C-g>"] = cmp.mapping(function()
+          if cmp.visible_docs() then
+            cmp.close_docs()
+          else
+            cmp.open_docs()
+          end
+        end, {
+          "i",
+          "s",
+        }),
       },
       ---@diagnostic disable-next-line: missing-fields
       formatting = {
         fields = { "kind", "abbr", "menu" },
+        expandable_indicator = false,
         format = function(entry, vim_item)
+          local label = vim_item.abbr
+          local truncated_label = vim.fn.strcharpart(label, 0, 35)
+          if truncated_label ~= label then
+            vim_item.abbr = truncated_label .. '…'
+          end
           vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
           vim_item.menu = ({
             nvim_lsp = "[LSP]",
@@ -114,7 +147,12 @@ return {
         end,
       },
       sources = {
-        { name = 'nvim_lsp' },
+        {
+          name = "nvim_lsp",
+          entry_filter = function(entry, ctx)
+            return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
+          end
+        },
         { name = "nvim_lua" },
         { name = "luasnip" },
         { name = "buffer" },
@@ -122,6 +160,12 @@ return {
       experimental = {
         native_menu = false,
         ghost_text = false,
+      },
+      ---@diagnostic disable-next-line: missing-fields
+      view = {
+        docs = {
+          auto_open = false,
+        },
       },
       window = {
         ---@diagnostic disable-next-line: missing-fields

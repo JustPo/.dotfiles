@@ -26,6 +26,7 @@ return {
       nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
       nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
       nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+      vim.keymap.set("i", "<c-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "hello World" })
 
       nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
