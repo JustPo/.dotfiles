@@ -2,7 +2,7 @@ return {
   "echasnovski/mini.pairs",
   version = '*',
   lazy = true,
-  enabled = false,
+  enabled = true,
   event = { "InsertEnter" },
   opts = {},
   config = function()

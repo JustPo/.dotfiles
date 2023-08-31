@@ -149,8 +149,12 @@ return {
       sources = {
         {
           name = "nvim_lsp",
-          entry_filter = function(entry, ctx)
-            return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
+          entry_filter = function(entry, _)
+            if entry.completion_item.label == "()" then
+              return false
+            else
+              return true
+            end
           end
         },
         { name = "nvim_lua" },
@@ -159,7 +163,7 @@ return {
       },
       experimental = {
         native_menu = false,
-        ghost_text = false,
+        ghost_text = true,
       },
       ---@diagnostic disable-next-line: missing-fields
       view = {

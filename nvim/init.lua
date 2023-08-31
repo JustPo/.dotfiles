@@ -89,3 +89,10 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
   end
 })
 
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = { 'LspProgressUpdate' },
+  callback = function()
+    print("progress")
+  end,
+})
