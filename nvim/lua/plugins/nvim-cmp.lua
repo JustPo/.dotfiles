@@ -186,7 +186,13 @@ return {
     })
     ---@diagnostic disable-next-line: missing-fields
     cmp.setup.cmdline(':', {
+      preselect = cmp.PreselectMode.None,
       mapping = cmp.mapping.preset.cmdline(),
+
+    ---@diagnostic disable-next-line: missing-fields
+      completion = {
+        completeopt = 'menu,menuone,noinsert, noselect'
+      },
       sources = {
         { name = 'path' },
         { name = 'cmdline' },
