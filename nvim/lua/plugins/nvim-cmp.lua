@@ -191,7 +191,7 @@ return {
 
     ---@diagnostic disable-next-line: missing-fields
       completion = {
-        completeopt = 'menu,menuone,noinsert, noselect'
+        completeopt = 'menu,menuone,noinsert,noselect'
       },
       sources = {
         { name = 'path' },

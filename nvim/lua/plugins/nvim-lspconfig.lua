@@ -59,7 +59,12 @@ return {
       )
     end
 
-    require('neodev').setup()
+    require("neodev").setup({
+      override = function(_, library)
+        library.enabled = true
+        library.plugins = true
+      end,
+    })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)

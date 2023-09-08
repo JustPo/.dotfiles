@@ -55,18 +55,19 @@ return {
       }
     }
     vim.api.nvim_create_autocmd('BufEnter', {
+      group = vim.api.nvim_create_augroup("config_nvim_tree_buf_enter", { clear = true }),
       pattern = 'NvimTree_1',
       command = 'set termguicolors | hi Cursor blend=100 | set guicursor+=a:Cursor/lCursor'
     })
 
-    vim.api.nvim_create_autocmd(
-      "BufLeave",
-      {
-        pattern = "NvimTree_1",
-        command = 'set termguicolors | hi Cursor blend=0'
-      }
-    )
+    vim.api.nvim_create_autocmd("BufLeave", {
+      group = vim.api.nvim_create_augroup("config_nvim_tree_leave", { clear = true }),
+      pattern = "NvimTree_1",
+      command = 'set termguicolors | hi Cursor blend=0'
+    })
+
     vim.api.nvim_create_autocmd('VimEnter', {
+      group = vim.api.nvim_create_augroup("config_nvim_tree_vim_enter", { clear = true }),
       pattern = 'NvimTree_1',
       desc = 'Hide Cursor',
       callback = function()

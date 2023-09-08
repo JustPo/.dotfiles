@@ -10,6 +10,7 @@ return {
       tsx = { 'eslint' }
     }
     vim.api.nvim_create_autocmd({ "BufWritePost *.ts" }, {
+      group = vim.api.nvim_create_augroup("config_try_lint", { clear = true }),
       callback = function()
         require("lint").try_lint()
       end,

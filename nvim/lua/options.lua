@@ -44,3 +44,12 @@ vim.opt.scrolloff = 4
 vim.o.signcolumn = "yes:1"
 vim.opt.autoindent = true
 vim.opt.laststatus = 3
+
+vim.cmd [[highlight StatusLine guibg=NONE]]
+vim.diagnostic.config({
+  underline = false,
+})
+
+local hl = vim.api.nvim_get_hl(0, { name = 'VertSplit' })
+hl.blend = 100
+vim.api.nvim_set_hl(0, 'VertSplit', hl)

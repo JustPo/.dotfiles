@@ -30,14 +30,14 @@ return {
       options = {
         icons_enabled        = true,
         theme                = theme,
-        ignore_focus         = { "Telescope", "Navigator" },
+        ignore_focus         = { "Telescope", "Navigator", "help" },
         always_divide_middle = false,
         globalstatus         = true,
         refresh              = {
           statusline = 100,
         },
         disabled_filetypes   = {
-          -- statusline = { "alpha" }, winbar = {},
+          statusline = { "alpha" }, winbar = {},
         },
       },
       sections = {
