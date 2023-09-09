@@ -88,3 +88,38 @@ vim.api.nvim_create_autocmd('User', {
   callback = function()
   end,
 })
+
+
+local HEIGHT_RATIO = 0.8 -- You can change this
+-- local WIDTH_RATIO = 0.5
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = vim.api.nvim_create_augroup("help_win", { clear = true }),
+  callback = function()
+    local screen_w = vim.opt.columns:get()
+    local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+    -- local window_w = screen_w * WIDTH_RATIO
+    local window_h = screen_h * HEIGHT_RATIO
+    -- local window_w_int = math.floor(window_w)
+    local window_h_int = math.floor(window_h)
+    local center_x = (screen_w - 81) / 2
+    local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+
+    local opts = {
+      border = "rounded",
+      zindex = 250,
+      relative = "editor",
+      row = center_y,
+      col = center_x,
+      width = 81,
+      title = "Help",
+      title_pos = "center",
+      height = window_h_int,
+    }
+    local win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_get_current_buf()
+    if vim.bo[buf].buftype == "help" then
+      vim.api.nvim_win_set_config(win, opts)
+    end
+  end
+})
