@@ -81,12 +81,43 @@ return {
         diffRemoved = { link = 'DiffDelete' },
         GitSignsDeletePreview = { bg = 'NONE', fg = "love", blend = 0, nocombine = true },
         GitSignsAddPreview = { bg = 'NONE', fg = '#5beb82', blend = 0, nocombine = true },
-        GitSignsAddLn = { bg = 'NONE', fg = 'none', blend = 0, nocombine = true }
+        GitSignsAddLn = { bg = 'NONE', fg = 'none', blend = 0, nocombine = true },
+        NoiceCmdlinePopupBorderSearch = { bg = 'none', fg = 'highlight_med' },
+        NoiceCmdlineIconSearch = { bg = 'none', fg = '#e0def4' },
+        NoiceCmdLinePopupTitle = { bg = 'none', fg = '#908caa' },
+        NoiceCursor = { fg = "text", bg = "highlight_high" },
+        NoiceCmdlinePopupBorder = { bg = 'none', fg = 'highlight_med' },
+        NotifyERRORBorder = { fg = '#eb6f92' },
+        NotifyWARNBorder = { fg = '#f6c177' },
+        NotifyINFOBorder = { fg = '#c4a7e7' },
+        NotifyDEBUGBorder = { fg = '#eb6f92' },
+        NotifyTRACEBorder = { fg = '#c4a7e7' },
+        NotifyINFOTitle = { bg = 'none', fg = '#c4a7e7' },
+        NotifyINFOIcon = { bg = 'none', fg = '#c4a7e7' },
+        NotifyWARNTitle = { bg = 'none', fg = '#f6c177' },
+        NotifyWARNIcon = { bg = 'none', fg = '#f6c177' },
+        NotifyDEBUGTitle = { bg = 'none', fg = '#eb6f92' },
+        NotifyDEBUGIcon = { bg = 'none', fg = '#eb6f92' },
+        NotifyTRACETitle = { bg = 'none', fg = '#c4a7e7' },
+        NotifyTRACEIcon = { bg = 'none', fg = '#c4a7e7' },
+        NotifyERRORTitle = { bg = 'none', fg = '#eb6f92' },
+        NotifyERRORIcon = { bg = 'none', fg = '#eb6f92' },
+        NoiceVirtualText = { bg = 'none', fg = 'subtle'}
       }
     }
     require('rose-pine').setup(opts)
     vim.cmd('colorscheme rose-pine')
     vim.cmd [[highlight GitSignsAddPreview guibg=none]]
     vim.cmd [[highlight GitSignsDeletePreview guibg=none]]
+    vim.cmd [[highlight NotifyINFOTitle guifg=#c4a7e7]]
+    vim.cmd [[highlight NotifyINFOIcon guifg=#c4a7e7]]
+    vim.cmd [[highlight NotifyDEBUGTitle guifg=#eb6f92]]
+    vim.cmd [[highlight NotifyDEBUGIcon guifg=#eb6f92]]
+    vim.cmd [[highlight NotifyERRORTitle guifg=#eb6f92]]
+    vim.cmd [[highlight NotifyERRORIcon guifg=#eb6f92]]
+    vim.cmd [[highlight NotifyTRACETitle guifg=#c4a7e7]]
+    vim.cmd [[highlight NotifyTRACEIcon guifg=#c4a7e7]]
+    vim.cmd [[highlight NotifyWARNTitle guifg=#f6c177]]
+    vim.cmd [[highlight NotifyWARNIcon guifg=#f6c177]]
   end,
 }

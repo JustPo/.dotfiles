@@ -2,6 +2,7 @@ require "lazy-nvim"
 require "keymaps"
 require "options"
 require "commands"
+
 --
 -- vim.api.nvim_create_autocmd("BufWritePost", {
 --   group = vim.api.nvim_create_augroup("swift_build", { clear = true }),
