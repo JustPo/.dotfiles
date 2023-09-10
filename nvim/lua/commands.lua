@@ -90,7 +90,7 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 
-local HEIGHT_RATIO = 0.8 -- You can change this
+local HEIGHT_RATIO = 0.8
 -- local WIDTH_RATIO = 0.5
 
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -121,5 +121,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
     if vim.bo[buf].buftype == "help" then
       vim.api.nvim_win_set_config(win, opts)
     end
+  end
+})
+
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+  group = vim.api.nvim_create_augroup("rust_save", { clear = true }),
+  pattern = "*.rs",
+  nested = true,
+  callback = function()
+    vim.cmd [[silent write]]
   end
 })
