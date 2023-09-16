@@ -28,56 +28,56 @@ require "commands"
 --   end
 -- })
 
-  -- vim.api.nvim_create_autocmd("FileType", {
-  --   group = vim.api.nvim_create_augroup("help_window", { clear = true }),
-  --   pattern = "help"
-  --
-  -- })
-  --local uv = vim.loop
-  --local stdin = uv.new_pipe()
-  --local stdout = uv.new_pipe()
-  --local stderr = uv.new_pipe()
-  --local swift_format = vim.loop.cwd() ..
-  --    "/.build/artifacts/swiftpackage/swiftformat/swiftformat.artifactbundle/swiftformat-0.52.2-macos/bin"
-  --
-  --local file = vim.loop.cwd() .. "/Sources/swiftPackage/test.swift"
-  --
-  --local handle, pid = uv.spawn("swiftformat", {
-  --  args = { "stdin" },
-  --  cwd = swift_format,
-  --  stdio = { stdin, stdout, stderr }
-  --}, function(code, signal) -- on exit
-  --  print("exit code", code)
-  --  print("exit signal", signal)
-  --end)
-  --
-  --print("process opened")
-  --
-  --if stdout ~= nil then
-  --  stdout:read_start(function(err, data)
-  --    if data then
-  --      print(data)
-  --      vim.schedule(function()
-  --        vim.api.nvim_buf_set_lines(6, -1, -1, false, { data })
-  --      end)
-  --    else
-  --      print("Std out err")
-  --    end
-  --  end)
-  --end
-  --
-  --vim.api.nvim_buf_set_lines(6, -1, -1, false, { file })
-  --
-  --if stderr ~= nil then
-  --  stderr:read_start(function(err, data)
-  --    if data then
-  --      print(data)
-  --      vim.schedule(function()
-  --        --vim.api.nvim_buf_set_lines(6, -1, -1, false, { data })
-  --      end)
-  --    else
-  --    end
-  --  end)
-  --end
-  --
-  --stdin:write(file)
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = vim.api.nvim_create_augroup("help_window", { clear = true }),
+--   pattern = "help"
+--
+-- })
+--local uv = vim.loop
+--local stdin = uv.new_pipe()
+--local stdout = uv.new_pipe()
+--local stderr = uv.new_pipe()
+--local swift_format = vim.loop.cwd() ..
+--    "/.build/artifacts/swiftpackage/swiftformat/swiftformat.artifactbundle/swiftformat-0.52.2-macos/bin"
+--
+--local file = vim.loop.cwd() .. "/Sources/swiftPackage/test.swift"
+--
+--local handle, pid = uv.spawn("swiftformat", {
+--  args = { "stdin" },
+--  cwd = swift_format,
+--  stdio = { stdin, stdout, stderr }
+--}, function(code, signal) -- on exit
+--  print("exit code", code)
+--  print("exit signal", signal)
+--end)
+--
+--print("process opened")
+--
+--if stdout ~= nil then
+--  stdout:read_start(function(err, data)
+--    if data then
+--      print(data)
+--      vim.schedule(function()
+--        vim.api.nvim_buf_set_lines(6, -1, -1, false, { data })
+--      end)
+--    else
+--      print("Std out err")
+--    end
+--  end)
+--end
+--
+--vim.api.nvim_buf_set_lines(6, -1, -1, false, { file })
+--
+--if stderr ~= nil then
+--  stderr:read_start(function(err, data)
+--    if data then
+--      print(data)
+--      vim.schedule(function()
+--        --vim.api.nvim_buf_set_lines(6, -1, -1, false, { data })
+--      end)
+--    else
+--    end
+--  end)
+--end
+--
+--stdin:write(file)

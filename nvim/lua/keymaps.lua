@@ -21,6 +21,7 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "<C-i>", ':let@/=""<CR>', opts)
 
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
@@ -41,8 +42,6 @@ keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 keymap('n', "<C-m>", "*``cgn", opts)
 
-vim.keymap.set('n', '<c-f>', vim.lsp.buf.format, opts)
-vim.keymap.set('v', '<c-f>', vim.lsp.buf.format, opts)
 keymap('n', '<leader>o', ':normal o<CR>', opts)
 keymap('n', '<leader>O', ':normal O<CR>', opts)
 keymap('n', '<C-w>', ':silent write<CR>', opts)

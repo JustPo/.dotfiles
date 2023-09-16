@@ -132,4 +132,3 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     vim.cmd [[silent write]]
   end
 })
-
