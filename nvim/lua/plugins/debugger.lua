@@ -29,7 +29,23 @@ return {
   },
   config = function()
     local dap_ui = require("dapui")
-    dap_ui.setup()
+    dap_ui.setup({
+      controls = {
+        element = "repl",
+        enabled = true,
+        icons = {
+          disconnect = "",
+          pause = "",
+          play = "",
+          run_last = "",
+          step_back = "",
+          step_into = "",
+          step_out = "",
+          step_over = "",
+          terminate = ""
+        }
+      }
+    })
     local dap = require('dap')
     dap.adapters.codelldb_swift = {
       type = 'server',

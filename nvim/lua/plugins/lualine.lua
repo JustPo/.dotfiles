@@ -73,7 +73,7 @@ return {
             cond = file_type,
             symbols = { modified = "", readonly = "", unnamed = "" },
             padding = { left = 0, right = 1 },
-            color = { fg = 'None', bg = 'None' }
+            color = { fg = 'white', bg = 'None' }
           },
         },
         lualine_z = {
@@ -81,7 +81,7 @@ return {
             "branch",
             always_visible = true,
             icon = { '', padding = { left = 0, right = 0 }, color = { fg = '#e17792' } },
-            color = { fg = 'None', bg = 'None' }
+            color = { fg = 'white', bg = 'None' }
           }
         },
       },
