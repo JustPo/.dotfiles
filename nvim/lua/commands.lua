@@ -132,3 +132,11 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     vim.cmd [[silent write]]
   end
 })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "TextChanged" }, {
+  group = vim.api.nvim_create_augroup("nvim_lint", { clear = true }),
+  pattern = { "*.swift", "*.ts", "*.tsx", "*.js" },
+  callback = function()
+    require("lint").try_lint()
+  end
+})
