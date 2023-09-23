@@ -106,3 +106,11 @@ mkcdir ()
        cd -P -- "$1"
 }
 bindkey '^I' autosuggest-accept
+
+tmux_rename_window() {
+  if [ -z "$1" ]; then 
+    echo "Usage: tmux_rename_window <custom name>"
+  else 
+     tmux rename-window "$1"
+  fi
+}
