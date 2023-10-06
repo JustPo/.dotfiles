@@ -47,7 +47,7 @@ vim.opt.laststatus = 3
 
 vim.cmd [[highlight StatusLine guibg=NONE]]
 vim.diagnostic.config({
-  underline = false,
+  underline = true,
 })
 
 local hl = vim.api.nvim_get_hl(0, { name = 'VertSplit' })

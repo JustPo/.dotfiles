@@ -8,6 +8,7 @@ return {
     },
     formatters_by_ft = {
       swift = { 'swiftformat' },
+      lua = { 'stylua' }
     },
   },
   keys = {
@@ -15,7 +16,7 @@ return {
       "<C-f>",
       mode = { "n", "x", "o" },
       function()
-        require("conform").format({ timeout_ms = 500, lsp_fallback = true })
+        require("conform").format({ timeout_ms = 500, lsp_fallback = false })
       end,
       desc = "Format File",
     },

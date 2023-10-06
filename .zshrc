@@ -114,3 +114,7 @@ tmux_rename_window() {
      tmux rename-window "$1"
   fi
 }
+
+if [ -d ~/codelldb/extension/adapter ]; then
+ export PATH=$PATH:~/codelldb/extension/adapter
+fi
