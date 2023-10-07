@@ -39,6 +39,17 @@ return {
 			nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 			nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
 			nmap("<leader>wl", function() end, "[W]orkspace [L]ist Folders")
+			nmap("<C-h>", function()
+				local opts = {
+					focusable = false,
+					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+					border = "rounded",
+					source = "always",
+					prefix = " ",
+					scope = "cursor",
+				}
+				vim.diagnostic.open_float(nil, opts)
+			end, "LSP diagnostic hover")
 
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = "rounded",
@@ -101,6 +112,12 @@ return {
 			require("lspconfig").rust_analyzer.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
+				settings = {
+					["rust-analyzer"] = {
+						checkOnSave = { command = "clippy" },
+						diagnostics = { experimental = { enable = true } },
+					},
+				},
 				filetypes = require("lspconfig").rust_analyzer.filetypes,
 			}),
 		})
