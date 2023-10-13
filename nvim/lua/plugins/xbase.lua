@@ -1,6 +1,6 @@
 return {
   'xbase-lab/xbase',
-  build = 'make install',
+  build = 'make install_debug',
   requires = {
     "neovim/nvim-lspconfig",
   },

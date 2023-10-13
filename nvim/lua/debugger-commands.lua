@@ -1,9 +1,7 @@
 local function contains(list, item)
 	for _, val in ipairs(list) do
 		if item == val then
-			return true
-		end
-	end
+			return true end end
 	return false
 end
 
@@ -48,14 +46,13 @@ local function process_cargo_artifact(artifact)
 		local config = {
 			name = "Rust Debug",
 			type = "codelldb_rust",
-			request = "launch",
+			request = "attach",
 			program = executables[1],
 			cwd = "${workspaceFolder}",
 			stopOnEntry = false,
 			args = {},
 		}
 
-		-- dap.defaults.fallback.terminal_win_cmd = "5split new"
 		require("dapui").open({ layout = 2 })
 		require("dap.ext.autocompl").attach()
 		dap.run(config)
@@ -63,7 +60,12 @@ local function process_cargo_artifact(artifact)
 end
 
 local function start_cargo(opts)
-	vim.fn.jobstart({ "cargo", "test", "--message-format=json" }, {
+	local command = opts.fargs[1]
+if command ~= "run" and command ~= "test" then
+		vim.notify("Command unsupported.", vim.log.levels.TRACE)
+		return
+	end
+	vim.fn.jobstart({ "cargo", "build", "--message-format=json" }, {
 		cwd = vim.loop.cwd(),
 		on_stdout = function(_, data)
 			if type(data) ~= "table" then

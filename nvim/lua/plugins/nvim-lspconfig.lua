@@ -39,7 +39,7 @@ return {
 			nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 			nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
 			nmap("<leader>wl", function() end, "[W]orkspace [L]ist Folders")
-			nmap("<C-h>", function()
+			nmap("<leader>sd", function()
 				local opts = {
 					focusable = false,
 					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
