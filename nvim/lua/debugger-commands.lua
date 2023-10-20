@@ -1,7 +1,9 @@
 local function contains(list, item)
 	for _, val in ipairs(list) do
 		if item == val then
-			return true end end
+			return true
+		end
+	end
 	return false
 end
 
@@ -46,7 +48,7 @@ local function process_cargo_artifact(artifact)
 		local config = {
 			name = "Rust Debug",
 			type = "codelldb_rust",
-			request = "attach",
+			request = "launch",
 			program = executables[1],
 			cwd = "${workspaceFolder}",
 			stopOnEntry = false,
@@ -61,7 +63,7 @@ end
 
 local function start_cargo(opts)
 	local command = opts.fargs[1]
-if command ~= "run" and command ~= "test" then
+	if command ~= "run" and command ~= "test" then
 		vim.notify("Command unsupported.", vim.log.levels.TRACE)
 		return
 	end

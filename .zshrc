@@ -1,9 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
+# Path to your oh-my-zsh installation. export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -28,8 +26,7 @@ ZSH_THEME="robbyrussell"
 # zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+# Uncomment the following line to change how often to auto-update (in days). zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -72,7 +69,7 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-syntax-highlighting fast-syntax-highlighting zsh-autosuggestions)
 
-source $ZSH/oh-my-zsh.sh
+source ~/.oh-my-zsh/./oh-my-zsh.sh
 
 # User configuration
 
@@ -118,3 +115,8 @@ tmux_rename_window() {
 if [ -d ~/codelldb/extension/adapter ]; then
  export PATH=$PATH:~/codelldb/extension/adapter
 fi
+
+unsetopt AUTO_CD
+alias vim='nvim'
+alias lf='xplr'
+export EDITOR='nvim'
