@@ -68,6 +68,12 @@ mouse:
 
 live_config_reload: true
 
+scrolling:
+  history: 10000
+  multiplier: 3
+  faux_multiplier: 3
+  auto_scroll: true
+
 shell:
  program: /bin/zsh
  args:
