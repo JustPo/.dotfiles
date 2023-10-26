@@ -72,10 +72,9 @@ scrolling:
   history: 10000
   multiplier: 3
   faux_multiplier: 3
-  auto_scroll: true
+  auto_scroll: false
 
 shell:
  program: /bin/zsh
  args:
    - --login
-
