@@ -3,17 +3,7 @@
 
 # Path to your oh-my-zsh installation. export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -111,6 +101,11 @@ tmux_rename_window() {
      tmux rename-window "$1"
   fi
 }
+dtrace_dump() {
+  arg1="${1// /?}"
+  sudo dtrace -qn 'pid$target:'"$arg1"'::entry { printf("%s\n",
+  probefunc); } ' -p `pgrep "$1"` | grep -E "^[^@].*\."
+}
 
 if [ -d ~/codelldb/extension/adapter ]; then
  export PATH=$PATH:~/codelldb/extension/adapter
@@ -120,3 +115,8 @@ unsetopt AUTO_CD
 alias vim='nvim'
 alias lf='xplr'
 export EDITOR='nvim'
+
+
+if [[ -z "$TMUX" ]]; then
+  tmux attach-session -t personal || tmux new-session -A -s personal
+fi
