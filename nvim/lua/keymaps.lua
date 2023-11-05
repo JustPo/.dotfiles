@@ -42,6 +42,7 @@ keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 keymap('n', "<C-m>", "*``cgn", opts)
 
+keymap('n', '<leader>a', ':wqa<CR>', opts)
 keymap('n', '<leader>o', ':normal o<CR>', opts)
 keymap('n', '<leader>O', ':normal O<CR>', opts)
 keymap('n', '<C-w>', ':silent write<CR>', opts)

@@ -15,9 +15,9 @@ window:
 colors:
   primary:
     background: "0x191724"
-    foreground: "0xe0def4"
+    foreground: "0xFFFFFF"
   cursor:
-    text: "0xe0def4"
+    text: "0xFFFFFF"
     cursor: "0x524f67"
   vi_mode_cursor:
     text: "0xe0def4"
@@ -73,7 +73,10 @@ scrolling:
   faux_multiplier: 3
   auto_scroll: false
 
+
 shell:
- program: /bin/zsh
- args:
-   - --login
+  program: /bin/zsh 
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux" 
