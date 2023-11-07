@@ -9,6 +9,9 @@ precmd() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
+# Use the chpwd hook to call the function when the current directory changes
+chpwd_functions+=( vcs_info )
+
 zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%b%{$fg[blue]%})%{$reset_color%}"
 
 PROMPT="%{$fg[cyan]%}%2~%{$reset_color%}"

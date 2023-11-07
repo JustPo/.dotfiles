@@ -67,16 +67,9 @@ mouse:
 
 live_config_reload: true
 
-scrolling:
-  history: 10000
-  multiplier: 3
-  faux_multiplier: 3
-  auto_scroll: false
-
-
 shell:
   program: /bin/zsh 
   args:
     - -l
     - -c
-    - "tmux attach || tmux" 
+    - tmux new-session -A -s main 
