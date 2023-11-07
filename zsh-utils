@@ -1,0 +1,71 @@
+# Function to source files if they exist
+function zsh_add_file() {
+    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
+
+function zsh_add_plugin() {
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+        # For plugins
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+    else
+        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+    fi
+}
+
+mkcdir() {
+  mkdir -p -- "$1" &&
+  cd -P -- "$1"
+}
+
+tmux_rename_window() {
+  if [ -z "$1" ]; then 
+    echo "Usage: tmux_rename_window <custom name>"
+  else 
+     tmux rename-window "$1"
+  fi
+}
+
+dtrace_dump() {
+  arg1="${1// /?}"
+  sudo dtrace -qn 'pid$target:'"$arg1"'::entry { printf("%s\n", probefunc); } ' -p `pgrep "$1"` | grep -E "^[^@].*\."
+}
+
+if [ -d ~/codelldb/extension/adapter ]; then
+ export PATH=$PATH:~/codelldb/extension/adapter
+fi
+
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+function fzf-widget {
+    current_buffer="$BUFFER"
+    fzf_value=
+
+    if [[ "$(echo "$current_buffer" | tr -d '[:space:]')" == "cd" ]]; then
+      fzf_value=$(fd . --type directory -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p -w 100% --reverse --bind change:top) 
+    elif [[ "$current_buffer" == "cd -A" ]]; then
+    fzf_value=$(cd | $(fd . --type directory | fzf-tmux -p --reverse --bind change:top)) 
+    fi
+
+    if [ -z "$fzf_value" ]; then
+        zle reset-prompt
+    else
+        cd "$fzf_value"
+        vcs_info
+        zle reset-prompt
+        zle kill-buffer
+    fi
+}
+
+volume() {
+  if [ $# -eq 0 ]; then
+    osascript -e 'get output volume of (get volume settings)'
+  else
+    osascript -e "set volume output volume $1"
+  fi
+}
