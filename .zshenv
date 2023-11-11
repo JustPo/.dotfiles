@@ -14,4 +14,5 @@ export FZF_DEFAULT_OPTS='
 	--color=pointer:#c4a7e7,marker:-1,prompt:#908caa'
 export TERM='alacritty'
 . "$HOME/.cargo/env"
+export ESCDELAY=20
 

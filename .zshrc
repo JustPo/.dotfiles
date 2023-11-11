@@ -1,4 +1,4 @@
-source "$ZDOTDIR/utils"
+source "$ZDOTDIR/zsh-utils"
 
 #Files
 zsh_add_file "zsh-widgets"
@@ -29,5 +29,5 @@ zle -N edit-command-line
 
 #Bindings
 bindkey '^I' autosuggest-accept
-bindkey '^[[Z' fzf-widget
+bindkey '^F' fzf-widget
 bindkey '^e' edit-command-line

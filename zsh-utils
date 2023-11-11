@@ -1,4 +1,3 @@
-# Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
 }
@@ -42,24 +41,66 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-function fzf-widget {
-    current_buffer="$BUFFER"
-    fzf_value=
+fcd() {
+  local command=$(fd . --type directory ~ | fzf-tmux -p --reverse --bind change:top)
+  cd "$command"
+}
 
-    if [[ "$(echo "$current_buffer" | tr -d '[:space:]')" == "cd" ]]; then
-      fzf_value=$(fd . --type directory -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p -w 100% --reverse --bind change:top) 
-    elif [[ "$current_buffer" == "cd -A" ]]; then
-    fzf_value=$(cd | $(fd . --type directory | fzf-tmux -p --reverse --bind change:top)) 
-    fi
+hfcd() {
+  local command=$(fd . --type directory -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p --reverse --bind change:top)
+  cd "$command"
+}
 
-    if [ -z "$fzf_value" ]; then
-        zle reset-prompt
-    else
-        cd "$fzf_value"
-        vcs_info
-        zle reset-prompt
-        zle kill-buffer
-    fi
+lcd() {
+  local command=$(fd . --type directory --max-depth 1 | fzf-tmux -p --reverse --bind change:top)
+  cd "$command"
+}
+
+hlcd() {
+  local command=$(fd . --type directory --max-depth 1 -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' | fzf-tmux -p --reverse --bind change:top)
+  cd "$command"
+}
+
+fvim() {
+  local command=$(fd . ~ | fzf-tmux -p --reverse --bind change:top)
+  if [ -n "$command" ]; then
+    nvim "$command"
+  fi
+}
+
+hfvim() {
+  local command=$(fd . -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p --reverse --bind change:top)
+  if [ -n "$command" ]; then
+    nvim "$command"
+  fi
+}
+
+lvim() {
+  local command=$(fd . --max-depth 1 | fzf-tmux -p --reverse --bind change:top)
+  if [ -n "$command" ]; then
+    nvim "$command"
+  fi
+}
+
+hlvim() {
+  local command=$(fd . --max-depth 1 -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' | fzf-tmux -p --reverse --bind change:top)
+  if [ -n "$command" ]; then
+    nvim "$command"
+  fi
+}
+
+fopen() {
+  local command=$(fd . --type file ~ | fzf-tmux -p --reverse --bind change:top)
+  if [ -n "$command" ]; then
+    open "$command"
+  fi
+}
+
+lopen() {
+  local command=$(fd . --type file | fzf-tmux -p --reverse --bind change:top)
+  if [ -n "$command" ]; then
+    open "$command"
+  fi
 }
 
 volume() {
