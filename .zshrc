@@ -5,7 +5,6 @@ zsh_add_file "zsh-widgets"
 zsh_add_file "zsh-prompt"
 
 #Settings
-zstyle ':autocomplete:*' ignored-input '..##'
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
 stty -ixon <$TTY >$TTY
@@ -24,10 +23,8 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 
 
 #Widgets
-zle -N fzf-widget
 zle -N edit-command-line
 
 #Bindings
 bindkey '^I' autosuggest-accept
-bindkey '^F' fzf-widget
 bindkey '^e' edit-command-line
