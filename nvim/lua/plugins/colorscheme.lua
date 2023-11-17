@@ -103,7 +103,6 @@ return {
 				NotifyERRORTitle = { bg = "none", fg = "#eb6f92" },
 				NotifyERRORIcon = { bg = "none", fg = "#eb6f92" },
 				NoiceVirtualText = { bg = "none", fg = "subtle" },
-				--DiagnosticUnderlineError = { bg = "none", fg = "love" },
 			},
 		}
 		require("rose-pine").setup(opts)

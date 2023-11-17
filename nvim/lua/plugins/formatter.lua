@@ -6,6 +6,7 @@ return {
 			swift = { "swiftformat" },
 			lua = { "stylua" },
 			rust = { "rustfmt" },
+			go = { "gofmt" },
 		},
 	},
 	keys = {

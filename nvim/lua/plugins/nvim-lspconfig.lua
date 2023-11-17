@@ -82,7 +82,7 @@ return {
 		local mason_lspconfig = require("mason-lspconfig")
 
 		mason_lspconfig.setup({
-			ensure_installed = { "tsserver", "lua_ls", "rust_analyzer" },
+			ensure_installed = { "tsserver", "lua_ls", "rust_analyzer", "gopls" },
 		})
 
 		mason_lspconfig.setup_handlers({
@@ -119,6 +119,21 @@ return {
 					},
 				},
 				filetypes = require("lspconfig").rust_analyzer.filetypes,
+			}),
+			require("lspconfig").gopls.setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				settings = {
+					gopls = {
+						completeUnimported = true,
+						usePlaceholders = true,
+						analyses = {
+							unusedparams = true,
+						},
+						staticcheck = true,
+						gofumpt = true,
+					},
+				},
 			}),
 		})
 
