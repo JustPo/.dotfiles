@@ -1,3 +1,5 @@
+
+
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
 }
@@ -42,64 +44,92 @@ timezsh() {
 }
 
 fcd() {
-  local command=$(fd . --type directory ~ | fzf-tmux -p --reverse --bind change:top)
+  local command=$(fd . --type directory ~ | fzf-tmux -p -w 100% --reverse --bind change:top)
   cd "$command"
 }
 
 hfcd() {
-  local command=$(fd . --type directory -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p --reverse --bind change:top)
+  local command=$(fd . --type directory -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p -w 100% --reverse --bind change:top)
   cd "$command"
 }
 
 lcd() {
-  local command=$(fd . --type directory --max-depth 1 | fzf-tmux -p --reverse --bind change:top)
+  local command=$(fd . --type directory --max-depth 1 | fzf-tmux -p -w 100% --reverse --bind change:top)
   cd "$command"
 }
 
 hlcd() {
-  local command=$(fd . --type directory --max-depth 1 -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' | fzf-tmux -p --reverse --bind change:top)
+  local command=$(fd . --type directory --max-depth 1 -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' | fzf-tmux -p -w 100% --reverse --bind change:top)
   cd "$command"
 }
 
-fvim() {
-  local command=$(fd . ~ | fzf-tmux -p --reverse --bind change:top)
+fnvim() {
+  local command=$(fd . ~ | fzf-tmux -p -w 100% --reverse --bind change:top)
   if [ -n "$command" ]; then
     nvim "$command"
   fi
 }
 
-hfvim() {
-  local command=$(fd . -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p --reverse --bind change:top)
+hfnvim() {
+  local command=$(fd . -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf-tmux -p -w 100% --reverse --bind change:top)
   if [ -n "$command" ]; then
     nvim "$command"
   fi
 }
 
-lvim() {
-  local command=$(fd . --max-depth 1 | fzf-tmux -p --reverse --bind change:top)
+lnvim() {
+  local command=$(fd . --max-depth 1 | fzf-tmux -p -w 100% --reverse --bind change:top)
   if [ -n "$command" ]; then
     nvim "$command"
   fi
 }
 
-hlvim() {
-  local command=$(fd . --max-depth 1 -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' | fzf-tmux -p --reverse --bind change:top)
+hlnvim() {
+  local command=$(fd . --max-depth 1 -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' | fzf-tmux -p -w 100% --reverse --bind change:top)
   if [ -n "$command" ]; then
     nvim "$command"
   fi
 }
 
 fopen() {
-  local command=$(fd . --type file ~ | fzf-tmux -p --reverse --bind change:top)
+  local command=$(fd . --type file ~ | fzf-tmux -p -w 100% --reverse --bind change:top)
   if [ -n "$command" ]; then
     open "$command"
   fi
 }
 
 lopen() {
-  local command=$(fd . --type file | fzf-tmux -p --reverse --bind change:top)
+  local command=$(fd . --type file | fzf-tmux -p -w 100% --reverse --bind change:top)
   if [ -n "$command" ]; then
     open "$command"
+  fi
+}
+
+gcb() {
+  local command=$(git branch --all | fzf-tmux -p -w 100% --reverse --bind change:top | tr -s '[:space:]' ' ' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+  if [ -n "$command" ]; then
+    git checkout "$command"
+  fi
+}
+
+gdb() {
+  local command=$(git branch --all | fzf-tmux -p -w 100% --reverse --bind change:top | tr -s '[:space:]' ' ' | sed -e 's/^\* //' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
+  if [ -n "$command" ]; then
+    if read -q "choice?Press Y/y to continue with deletion: "; then
+      git branch -D "$command"
+    else
+      echo "'$choice' not 'Y' or 'y'. Exiting..."
+    fi
+  fi
+}
+
+gadd() {
+  preview="git diff $@ --color=always -- {-1}"
+  local selected_files=($(git diff --name-only | fzf-tmux -p -w 100% --reverse --bind change:top -m --ansi --preview $preview))
+  
+  if [ ${#selected_files[@]} -gt 0 ]; then 
+    git add "${selected_files[@]}"
   fi
 }
 
