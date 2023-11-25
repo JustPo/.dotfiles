@@ -46,7 +46,7 @@ yabai -m rule --add app="Xcode$" space=^3
 
 systemApp='^(System Preferences|System Information|Finder|Calendar|Mail|App Store|Activity Monitor|Dictionary|System Settings)$'
 
-manageOffApp='^(IINA|Stats|LICEcap|Homerow)$'
+manageOffApp='^(Stats|LICEcap|Homerow)$'
 
 yabai -m rule --add app="${systemApp}|${manageOffApp}" manage=off
 
