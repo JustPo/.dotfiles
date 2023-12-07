@@ -6,6 +6,7 @@ autoload -U colors && colors
 zstyle ':vcs_info:*' enable git 
 
 precmd() { vcs_info }
+
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
@@ -15,3 +16,104 @@ zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%b%{$fg[blue]%})%{$
 
 PROMPT="%{$fg[cyan]%}%2~%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
+
+! (( $+commands[tmux] )) && { >&2 echo "zsh-tmux-auto-title: tmux not found. Please install tmux before using this plugin."; return 1 }
+
+: ${ZSH_TMUX_AUTO_TITLE_TARGET:=window}
+: ${ZSH_TMUX_AUTO_TITLE_SHORT:=false}
+: ${ZSH_TMUX_AUTO_TITLE_SHORT_EXCLUDE:=}
+: ${ZSH_TMUX_AUTO_TITLE_EXPAND_ALIASES:=false}
+: ${ZSH_TMUX_AUTO_TITLE_IDLE_TEXT:=" "}
+: ${ZSH_TMUX_AUTO_TITLE_IDLE_DELAY:=0}
+: ${ZSH_TMUX_AUTO_TITLE_PREFIX:=""}
+
+typeset -g ZSH_TMUX_AUTO_TITLE_LAST
+
+_zsh_tmux_auto_title_set_title() {
+  tmux rename-window "$1"
+}
+
+_compute_truncated_path() {
+  original_path=$(pwd | sed "s|^$HOME|~|")
+  max_levels=2
+  local truncated_path
+
+  # Split the path into an array using '/'
+  path_elements=(${(s:/:)original_path})
+
+  if (( ${#path_elements} > $max_levels )); then
+      truncated_path="../${(j:/:)path_elements[-$max_levels,-1]}"
+  else
+      truncated_path="${(j:/:)path_elements}"
+  fi
+
+  if [[ "$truncated_path" != "~"* ]]; then
+      truncated_path="/$truncated_path"
+  fi
+
+  echo $truncated_path
+}
+
+_zsh_tmux_auto_title_preexec() {
+	setopt extended_glob
+
+  local cmd=${1[(wr)^(*=*|sudo|ssh|mosh|-*)]:gs/%/%%}
+  local line="${2:gs/%/%%}"
+
+	[[ -z "$cmd" ]] && return
+
+	if [[ "$ZSH_TMUX_AUTO_TITLE_EXPAND_ALIASES" = "true" ]]; then
+		local cmd_type=$(whence -w $cmd | awk '{print $2}')
+		[[ "$cmd_type" = "alias" ]] && cmd=$(whence $cmd)
+	fi
+
+
+  local title 
+
+  if [[ "$line" =~ ^go ]]; then
+   local truncated
+    if [[ ${#line} -gt 20 ]]; then
+        truncated=${line[1,10]}
+        title=" $truncated... $(_compute_truncated_path)"
+    else 
+        title=" $line $(_compute_truncated_path)"
+    fi 
+  elif [[ "$line" =~ ^cd ]]; then
+    title="  $(_compute_truncated_path)"
+  elif [[ "$line" =~ ^nvim\ \. ]]; then
+        title=" $(_compute_truncated_path)"
+  else 
+    local truncated
+    if [[ ${#line} -gt 20 ]]; then
+        truncated=${line[1,10]}
+        title="  $truncated... $(_compute_truncated_path)"
+    else 
+        title="  $line $(_compute_truncated_path)"
+    fi
+  fi
+
+	[[ "$ZSH_TMUX_AUTO_TITLE_SHORT" = "true" ]] && 
+	! [[ "$cmd" =~ "$ZSH_TMUX_AUTO_TITLE_SHORT_EXCLUDE" ]] && title=$cmd
+
+
+  ZSH_TMUX_AUTO_TITLE_LAST=$title
+	_zsh_tmux_auto_title_set_title $title
+}
+
+_zsh_tmux_auto_title_precmd() {
+	local title=$ZSH_TMUX_AUTO_TITLE_IDLE_TEXT
+
+  title="$ZSH_TMUX_AUTO_TITLE_PREFIX$title $(_compute_truncated_path)"
+	if [[ "$ZSH_TMUX_AUTO_TITLE_IDLE_DELAY" = "0" ]]; then
+		_zsh_tmux_auto_title_set_title $title
+	else	
+		sched +$ZSH_TMUX_AUTO_TITLE_IDLE_DELAY _zsh_tmux_auto_title_set_title "$title"
+	fi
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook preexec _zsh_tmux_auto_title_preexec
+add-zsh-hook precmd _zsh_tmux_auto_title_precmd
+tmux set-window-option -g window-status-current-format '#I 󱦰 #W '
+tmux set-window-option -g window-status-format '#I 󱦰 #W '
+

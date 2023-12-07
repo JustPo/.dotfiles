@@ -43,7 +43,6 @@ vim.opt.cmdheight = 0
 vim.opt.scrolloff = 4
 vim.o.signcolumn = "yes:1"
 vim.opt.autoindent = true
-vim.opt.laststatus = 3
 
 vim.cmd [[highlight StatusLine guibg=NONE]]
 vim.diagnostic.config({

@@ -28,3 +28,5 @@ zle -N edit-command-line
 #Bindings
 bindkey '^I' autosuggest-accept
 bindkey '^e' edit-command-line
+export ANDROID_HOME=/Users/$USER/Library/Android/sdk
+export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
