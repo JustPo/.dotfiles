@@ -6,7 +6,7 @@ return {
       enabled = true,         -- enables the Noice cmdline UI
       view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
       format = {
-        cmdline = { pattern = "^:", icon = ">", lang = "vim" },
+        cmdline = { pattern = "^:", icon = "󱦰", lang = "vim" },
         search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
         search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
         filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },

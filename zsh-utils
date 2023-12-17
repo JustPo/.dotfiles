@@ -66,28 +66,32 @@ hlcd() {
 fnvim() {
   local command=$(fd . ~ | fzf --reverse --bind change:top)
   if [ -n "$command" ]; then
-    nvim "$command"
+    cd "$command"
+    nvim .
   fi
 }
 
 hfnvim() {
   local command=$(fd . -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' ~ | fzf --reverse --bind change:top)
   if [ -n "$command" ]; then
-    nvim "$command"
+    cd "$command"
+    nvim .
   fi
 }
 
 lnvim() {
   local command=$(fd . --max-depth 1 | fzf --reverse --bind change:top)
   if [ -n "$command" ]; then
-    nvim "$command"
+    cd "$command"
+    nvim .
   fi
 }
 
 hlnvim() {
   local command=$(fd . --max-depth 1 -H --exclude '.git' --exclude '.cache' --exclude '.npm' --exclude '.cargo' --exclude 'go/pkg*' | fzf --reverse --bind change:top)
   if [ -n "$command" ]; then
-    nvim "$command"
+    cd "$command"
+    nvim .
   fi
 }
 
@@ -138,5 +142,13 @@ volume() {
     osascript -e 'get output volume of (get volume settings)'
   else
     osascript -e "set volume output volume $1"
+  fi
+}
+
+testpopup() {
+  if tmux lsp -aF '#{pane_tty}' | grep -q "$(tty)"; then
+      echo "The output contains the result of 'tty' command."
+  else
+      echo "The output does not contain the result of 'tty' command."
   fi
 }

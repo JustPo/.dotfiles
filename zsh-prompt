@@ -23,7 +23,7 @@ PROMPT+="\$vcs_info_msg_0_ "
 : ${ZSH_TMUX_AUTO_TITLE_SHORT:=false}
 : ${ZSH_TMUX_AUTO_TITLE_SHORT_EXCLUDE:=}
 : ${ZSH_TMUX_AUTO_TITLE_EXPAND_ALIASES:=false}
-: ${ZSH_TMUX_AUTO_TITLE_IDLE_TEXT:=" "}
+: ${ZSH_TMUX_AUTO_TITLE_IDLE_TEXT:="  zsh"}
 : ${ZSH_TMUX_AUTO_TITLE_IDLE_DELAY:=0}
 : ${ZSH_TMUX_AUTO_TITLE_PREFIX:=""}
 
@@ -79,7 +79,7 @@ _zsh_tmux_auto_title_preexec() {
         title=" $line $(_compute_truncated_path)"
     fi 
   elif [[ "$line" =~ ^cd ]]; then
-    title="  $(_compute_truncated_path)"
+    title="  zsh $(_compute_truncated_path)"
   elif [[ "$line" =~ ^nvim\ \. ]]; then
         title=" $(_compute_truncated_path)"
   else 
